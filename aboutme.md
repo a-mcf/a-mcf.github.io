@@ -1,5 +1,6 @@
 ---
 layout: page
+show-avatar: true
 title: About
 subtitle: A bit about why I'm here
 ---
