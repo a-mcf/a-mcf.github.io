@@ -19,6 +19,15 @@ DevOps library is a collection of high quality, free videos training to get you 
 
 [PowerShell.org](https://powershell.org/) has tons of PowerShell resources. They have blog posts, free ebooks, a podcast, YoutTube videos, and much more.
 
-[Getting Started with PowerShell 3.0](https://mva.microsoft.com/liveevents/powershell-jumpstart) this is an MVA (Microsoft Virtual Academy) course that can get you going from 0-60 with PowerShell in about 8 hours.
+[Getting Started with PowerShell 3.0](https://mva.microsoft.com/liveevents/powershell-jumpstart) This is an MVA (Microsoft Virtual Academy) course that can get you going from 0-60 with PowerShell in about 8 hours.
 
 [Hey Scripting Guy! Blog](https://blogs.technet.microsoft.com/heyscriptingguy/) Microsoft Scripting Guy, Ed Wilson, has been publishing an article a day for a very, very, long time. There is a huge ammount of content there, covering nearly anything you would want to know about PowerShell.
+
+## Git
+
+[Interactive Git Tutorial](https://try.github.io/) Learn Git from GitHub's Octocat! In about 15 minutes, you'll be exposed to all the basics.
+
+[Learn Git Brancing](http://learngitbranching.js.org/) This interactive tutorial starts with some basic branching, and goes into more advanced topics.
+
+[Git Cheat Sheet](https://www.git-tower.com/blog/git-cheat-sheet/) A helpful cheat sheet that saves you from having to memorize the most common Git commands.
+

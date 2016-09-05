@@ -1,11 +1,11 @@
 ---
 layout: page
-show-avatar: true
-title: About
-subtitle: A bit about why I'm here
+show-avatar: false
+title: About<br>Me
+bigimg: /img/alex_nic3.jpg
 ---
 
-I've alwasy been an automation enthusiast. I wrote my first batch file in 1994 to launch DOOM with a two character command, and eventually graduated to writing scripts for my FidoNet-connected BBS. Years later, I got a job as a Windows System Administrator.
+I've alwasy been an automation enthusiast. I wrote my first batch file in 1994 to launch DOOM with a two character command. After taking over the family computer to run a dial-up [BBS](https://en.wikipedia.org/wiki/Bulletin_board_system), I had to expand my scripting skills to automate tasks that handled mail delivery and pickup from [FidoNet](https://en.wikipedia.org/wiki/FidoNet). Years later, I got a job as a Windows System Administrator.
 
 Being primarily Windows focussed, I sat out the early days of the DevOps revolution. When Linux admins were already managing their infrastructure as code with Chef and Puppet, I was still writing batch files, and occasionally, VBScript.
 
