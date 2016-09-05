@@ -3,7 +3,7 @@ layout: post
 title: On Sharing
 subtitle: Learning To Value Your Personal Perspective
 tags: [calms, culture, sharing]
-bigimg: /img/sharing.png
+bigimg: /img/sharing.jpg
 ---
 
 While a general consensus of what DevOps is seems to exist within the community, the precise definition of DevOps is still the subject of debate. The eslusive nature of an authortative definition brings to mind the Supreme Court of the United States' definition of obcenity ([I know it when I see it](https://en.wikipedia.org/wiki/I_know_it_when_I_see_it)). Lacking a firm definition, I've found that one of the more effective ways to frame the concepts encompassing DevOps is via an acronym coined by John Willis, Damon Edwards, and Jez Humble: [CALMS](http://itrevolution.com/devops-culture-part-1/).
