@@ -7,7 +7,7 @@ subtitle: Links to useful tools and resources
 ## General
 
 [Steve Murawski's reading list](http://stevenmurawski.com/devops-reading-list/)
-Steve Muawski has become recognized as one of the foremost DevOps experts in the Windows community. His reading list is simply awesome. I'm still making my way through it, but have already grown tremendously from the insight I've gained.
+Steve Murawski has become recognized as one of the foremost DevOps experts in the Windows community. His reading list is simply awesome. I'm still making my way through it, but have already grown tremendously from the insight I've gained.
 
 [DevOps Bookmarks](http://www.devopsbookmarks.com/)
 This is a community maintained list of DevOps tools. You can filter by type of tool, OS, language etc. If you're trying to figure out what tools are out there, or where to get started, this is a great place to look. If you've got something to add, you can fork the repository and contribute.
