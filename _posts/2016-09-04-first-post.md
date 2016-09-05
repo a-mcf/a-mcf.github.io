@@ -6,7 +6,7 @@ tags: [calms, culture, sharing]
 bigimg: /img/sharing.jpg
 ---
 
-While a general consensus of what DevOps seems to exist within the community, the precise definition of DevOps is still the subject of debate. The elusive nature of an authoritative definition brings to mind the Supreme Court of the United States' definition of obscenity ([I know it when I see it](https://en.wikipedia.org/wiki/I_know_it_when_I_see_it)). Lacking a firm definition, I've found that one of the more effective ways to frame the concepts encompassing DevOps is via an acronym coined by John Willis, Damon Edwards, and Jez Humble: [CALMS](http://itrevolution.com/devops-culture-part-1/).
+What is DevOps? While a general consensus of what DevOps is seems to exist within the community, the precise definition of DevOps is still the subject of debate. The elusive nature of an authoritative definition brings to mind the Supreme Court of the United States' definition of obscenity ([I know it when I see it](https://en.wikipedia.org/wiki/I_know_it_when_I_see_it)). Lacking a firm definition, I've found that one of the more effective ways to frame the concepts encompassing DevOps is via an acronym coined by John Willis, Damon Edwards, and Jez Humble: [CALMS](http://itrevolution.com/devops-culture-part-1/).
 
 CALMS stands for Culture, Automation, Lean, Measurement, and Sharing. I'm not going to break all of those down in this post. Instead, I want to spend some time on sharing. Previously, I had interpreted the sharing aspect of DevOps to mean sharing within your team or business, whether that meant sharing responsibility, information, tools, coffee, donuts, or whatever else.
 
