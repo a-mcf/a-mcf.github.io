@@ -1,8 +1,7 @@
 ---
 layout: page
 show-avatar: false
-title: About<br>Me
-bigimg: /img/alex_nic3.jpg
+title: About Me
 ---
 
 I've always been an automation enthusiast. I wrote my first batch file in 1994 to launch DOOM with a two-character command. After taking over the family computer to run a dial-up [BBS](https://en.wikipedia.org/wiki/Bulletin_board_system), I had to expand my scripting skills to automate tasks that handled mail delivery and pickup from [FidoNet](https://en.wikipedia.org/wiki/FidoNet). Years later, I got a job as a Windows System Administrator.
