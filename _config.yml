@@ -40,15 +40,15 @@ avatar: "/img/author.jpg"
 # Important: you must keep the "name" parameter, everything else you can remove
 author:
   name: Alex McFarland
-  email: "youremail@domain.com"
-  facebook: yourname  # eg. daattali
+  #email: "youremail@domain.com"
+  #facebook: yourname  # eg. daattali
   github: a-mcf    # eg. daattali
   twitter: a_mcf   # eg. daattali
-  linkedin: yourname  # eg. daattali
-  xing: yourname      # eg. daattali
-  stackoverflow: yourlink  # eg. "3943160/daattali"
-  instagram: yourname # eg. daattali
-  youtube: yourlink # eg. user/daattali or channel/daattali
+  #linkedin: yourname  # eg. daattali
+  #xing: yourname      # eg. daattali
+  #stackoverflow: yourlink  # eg. "3943160/daattali"
+  #instagram: yourname # eg. daattali
+  #youtube: yourlink # eg. user/daattali or channel/daattali
 
 # Select which links to show in the footer
 footer-links-active:
@@ -67,7 +67,7 @@ footer-links-active:
 share-links-active:
   twitter: true
   facebook: true
-  google: false
+  google: true
   linkedin: true
 
 # How to display the link to the website in the footer
