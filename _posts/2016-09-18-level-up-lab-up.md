@@ -2,6 +2,7 @@
 layout: post
 title: Level up, Lab up, Part 1
 subtitle: Be the Arbiter of Change, not a Casualty
+author: Alex McFarland
 tags: [kaizen, vagrant]
 bigimg: /img/earth_night_iss.jpg
 ---

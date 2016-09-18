@@ -129,6 +129,7 @@ PLATFORMS
 DEPENDENCIES
   execjs
   github-pages
+  jekyll-feed
   jekyll-paginate
   therubyracer
 
