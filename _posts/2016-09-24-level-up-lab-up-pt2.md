@@ -6,6 +6,7 @@ author: Alex McFarland
 tags: [vagrant]
 bigimg: /img/earth_night_iss.jpg
 ---
+In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT landscape is changing, and that if you wanted to stay current, you need to get out of your comfort zone and spend time experimenting with technology that you're not familliar with. In this post, we are going to take a look at Vagrant as a means of rapidy creating development and test environments so that you can skip the drudgery of installing operating systems and focus on the things that really matter.
 
 # Vagrant?
 [Vagrant](https://www.vagrantup.com/) is an open source project created by [HashiCorp](https://www.hashicorp.com/) designed to create lightweight, reproducible development environments. The idea is that you can create an environment that mirrors (or is at least close to) production and hand it out to your developers by only sharing a handful of text files.
@@ -137,11 +138,11 @@ You now have a running Windows Server 2012 R2 VM!
 ## Poking around
 Let's explore our new server a bit. You should have a visible VirtualBox desktop, and under the project folder, there is a .vagrant folder.
 
-Feel free to log into the console and explore, but don't make any changes just yet. Vagrant boxes all have a default user with a username of `vagrant` and a password of `vagrant`, and this box is no different. 
+Vagrant boxes all have a default user with a username of `vagrant` and a password of `vagrant`, and this box is no different. Feel free to log into the console and explore, but don't make any changes just yet.
 
 The .vagrant folder is a working directory where vagrant keeps track of things like the virtual machine name and various other metadata. This is all specific to your particular environment, and we don't need to do anything with it. If you're tracking your project in Git, you should add this folder to your .gitgnore file so that it doesn't get checked in and synced down to other people's machines.
 
-At this point, you have two ways to log in. You can use the VirtulBox GUI, or you can use PowerShell remoting. Let's start with remoting.
+At this point, you have two ways to log in. You can use the VirtulBox GUI, or you can use PowerShell remoting. Let's stick with PowerShell Remoting.
 
 Go back to your shell and ensure that you're still inside of the directory you chose for your vagrant project. Type `vagrant powershell` and hit enter. You should see something that resembles the following:
 
@@ -152,8 +153,6 @@ C:\vagrantdemo
     default: Creating powershell session to 127.0.0.1:55985
     default: Username: vagrant
 [127.0.0.1]: PS C:\Users\vagrant\Documents>
-[127.0.0.1]: PS C:\Users\vagrant\Documents> hostname
-WIN-U8HE00JFUB0
 ```
 You're now working inside of your VM.
 
@@ -264,7 +263,7 @@ C:\vagrantdemo
 ```
 
 ## Port Forwarding
-At this point, you have a functional web server, but it only works inside of the VM. If you open virtualbox and log into Windows, you can point your browser at `http://localhost` and get a page load. Unfortunately, you can't load the page from your normal browser outside of the VM. Let's fix that by adding one more line to the configuration file.
+At this point, you have a functional web server. If you log into the windows desktop via Virtualbox, you can point your browser at `http://localhost` and get a page load. Unfortunately, you can't load the page from your normal browser outside of the VM. Let's fix that by adding one more line to the configuration file.
 
 Once again, open `Vagrantfile` in your text editor. Add the following line above the provisoner line we added earlier:
 
@@ -294,7 +293,7 @@ Once the machine boots, load up your browser of choice and you should see the II
 
 ## Grand Finale
 
-Good work! You've made it this far, now it's time to delete the VM! Don't worry, because we built our configuration as code, the VM is ephemeral, and can be regenerated at will. Run:
+Good work! You've made it this far, now it's time to delete the VM! What what?! Don't worry, because we built our configuration as code, the VM is ephemeral, and can be regenerated at will. Run:
 
 ```
 vagrant destroy
@@ -309,10 +308,13 @@ vagrant up
 
 Once the machine boots back up, test a page load to confirm that everything is working again.
 
-One of the more amazing things about this, is that in order to share your environment with someone else, all you need to do is share the contents of your project folder (minus the .vagrant folder) and they can recreate the entire environment by just running `vagrant up`.
+One of the more amazing things about this, is that in order to share your environment with someone else, all you need to do is share the contents of your project folder (minus the .vagrant folder) and they can recreate the entire environment by just running `vagrant up`. In this case, that's only two files, and the script that we wrote could easily be consolidated into the `Vagrantfile` so that we only had one file to share!
 
-This really only scratches the surface, as you can perform some complex builds once you get into using the more advanced provisioners. You can even do [multi-machine](https://www.vagrantup.com/docs/multi-machine/) Vagrant projects! Another interesting option is to include a `Vagrantfile` with your existing projects. It's just a single text file, but gives you a way to bundle an entire development environment with your work.
+This really only scratches the surface, as you can perform very complex builds once you get into using the more advanced provisioners. You can even do [multi-machine](https://www.vagrantup.com/docs/multi-machine/) Vagrant projects! Another interesting option is to include a `Vagrantfile` with your existing projects. It's just a single text file, but gives you a way to bundle an entire development environment with your work.
 
-At work, we use DNN. I got tired of spending two hours building lab environments every time I wanted to tinker in a safe place, so I built an environment using Vagrant. One of the nice benefits was it gave me an opportunity to brush up on my PowerShell DSC, as it had been a while since I'd used it. You can find the project [here](https://github.com/a-mcf/DnnLab).
+## Examples
+At work, we use [DNN](http://www.dnnsoftware.com/) as our Web content management system. I got tired of spending two hours building lab environments every time I wanted to tinker in a safe place, so I built an environment using Vagrant. One of the nice benefits was it gave me an opportunity to brush up on my PowerShell DSC, as it had been a while since I'd used it. You can find the project [here](https://github.com/a-mcf/DnnLab). Now I can easily spin up _fresh_ test machines whenever I want.
+
+This blog is hosted on [Github Pages](https://pages.github.com/), and uses a [Jekyll](https://jekyllrb.com/) template called [Beautiful Jekyll](http://deanattali.com/beautiful-jekyll/). The template came with a `Vagrantfile` that spins up a Debian image, installs all Ruby  perquisites, and spins up the web server. This allows me to test changes locally, and I don't have to go through the trouble of mucking up my laptop's Ruby environment with all of the dependencies required to get Jekyll going.
 
 Share any interesting uses you've put Vagrant to in the comments!
