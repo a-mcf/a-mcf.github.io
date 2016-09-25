@@ -89,7 +89,7 @@ Time to bring up a machine! From inside the working directory, type:
 vagrant up
 ```
 
-Vagrant will check you local store of downloaded boxes. If it finds the box specified in the Vagrantfile, then it'll deploy it from there. Otherwise, it'll pull it down from HashiCorp. After downloading, the image will be booted. This particular image has had [sysprep](https://technet.microsoft.com/en-us/library/cc721940(v=ws.10).aspx) run on it, so it'll actually run through the Windows installation process. While installing Windows only takes a few minutes, the image is a few gigabytes in size (despite having many features removed), so this is a good time to make a sandwich or walk the dog. You should see a progress indicator with an ETA.
+Vagrant will check your local store of downloaded boxes. If it finds the box specified in the Vagrantfile, then it'll deploy it from there. Otherwise, it'll pull it down from HashiCorp. After downloading, the image will be booted. This particular image has had [sysprep](https://technet.microsoft.com/en-us/library/cc721940(v=ws.10).aspx) run on it, so it'll actually run through the Windows installation process. While installing Windows only takes a few minutes, the image is a few gigabytes in size (despite having many features removed), so this is a good time to make a sandwich or walk the dog. You should see a progress indicator with an ETA.
 
 ```powershell
 C:\vagrantdemo
@@ -136,7 +136,7 @@ After the machine downloads, Vagrant will start the VM and run any provisioners 
 You now have a running Windows Server 2012 R2 VM!
 
 ## Poking around
-Let's explore our new server a bit. You should have a visible VirtualBox desktop, and under the project folder, there is a .vagrant folder.
+Let's explore our new server a bit. You should have a visible VirtualBox desktop, and under the project folder, there is a `.vagrant` folder.
 
 Vagrant boxes all have a default user with a username of `vagrant` and a password of `vagrant`, and this box is no different. Feel free to log into the console and explore, but don't make any changes just yet.
 
@@ -247,7 +247,7 @@ vagrant provision
 
 This forces the provisioner to run. 
 
->Tip: Running `vagrant provision` can be a fantastic aid when you're making incremental changes to a script and want to test along the way. If you pair it with `vagrant snapshot` (documentation [here](https://www.vagrantup.com/docs/cli/snapshot.html)) to save and restore the sate of the VM, it can be an incredibly powerful development tool. 
+>Tip: Running `vagrant provision` can be a fantastic aid when you're making incremental changes to a script and want to test along the way. If you pair it with `vagrant snapshot` (documentation [here](https://www.vagrantup.com/docs/cli/snapshot.html)) to save and restore the state of the VM, it can be an incredibly powerful development tool. 
 
 With any luck, the command ran successfully, and you now have a functional web server installed. Your output should look something like this:
 
@@ -288,12 +288,53 @@ vagrant halt
 vagrant up
 ```
 
-Once the machine boots, load up your browser of choice and you should see the IIS start screen.
+Once the machine boots, load up your browser of choice, point to `http://localhost:8080` and you should see the IIS start screen.
 ![IIS home screen in browser on the host OS](/img/iishome.jpg)
+
+One last thing to try, is sharing your VM with remote users. You'll need a free account on Atlas to do this, but it's pretty cool. Run:
+```
+vagrant share --http 8080
+```
+
+This directs Vagrant to share our forwarded port (8080) as the HTTP port. Vagrant will give you a hostname that you can give to remote users so that they can visit the site. You can get the http URL from the output of the command:
+
+```
+C:\vagrantdemo        
+λ vagrant share --http 8080      
+==> default: Detecting network information for machine...
+    default: Local machine address: 127.0.0.1   
+    default:
+    default: Note: With the local address (127.0.0.1), Vagrant Share can only
+    default: share any ports you have forwarded. Assign an IP or address to your
+    default: machine to expose all TCP ports. Consult the documentation
+    default: for your provider ('virtualbox') for more information.
+    default:
+    default: Local HTTP port: 8080
+    default: Local HTTPS port: disabled
+    default: Port: 2200
+    default: Port: 8080
+    default: Port: 55985
+    default: Port: 55986 
+==> default: Checking authentication and authorization...
+==> default: Creating Vagrant Share session...
+    default: Share will be at: dreadful-armadillo-4080
+==> default: Your Vagrant Share is running! Name: dreadful-armadillo-4080
+==> default: URL: http://dreadful-armadillo-4080.vagrantshare.com
+==> default:
+==> default: You're sharing your Vagrant machine in "restricted" mode. This
+==> default: means that only the ports listed above will be accessible by      
+==> default: other users (either via the web URL or using `vagrant connect`).                                                               
+```
+
+I visited `http://dreadful-armadillo-4080.vagrantshare.com` in my browser, and sure enough, IIS loaded for me.
+
+Press control-c to terminate the share.
+
+> Note: Because Vagrant machines are intended for development use, they aren't always fully patched, and often use insecure defaults. Please be mindful of this when sharing your Vagrant environment on the Internet. Also, please be aware that you're sharing all forwarded ports, just the HTTP port. You've been warned.
 
 ## Grand Finale
 
-Good work! You've made it this far, now it's time to delete the VM! What what?! Don't worry, because we built our configuration as code, the VM is ephemeral, and can be regenerated at will. Run:
+Good work! You've made it this far, now it's time to delete the VM! Wait, what?! Don't worry, because we built our configuration as code, the VM is ephemeral, and can be regenerated at will. Run:
 
 ```
 vagrant destroy
@@ -319,4 +360,4 @@ At work, we use [DNN](http://www.dnnsoftware.com/) as our Web content management
 **Blogging**  
 This blog is hosted on [Github Pages](https://pages.github.com/), and uses a [Jekyll](https://jekyllrb.com/) template called [Beautiful Jekyll](http://deanattali.com/beautiful-jekyll/). The template came with a `Vagrantfile` that spins up a Debian image, installs all Ruby  perquisites, and spins up the web server. This allows me to test changes locally, and I don't have to go through the trouble of mucking up my laptop's Ruby environment with all of the dependencies required to get Jekyll going.
 
-Done any interesting with Vagrant or have any ideas? Sound off in the comments!
+Done anything interesting with Vagrant or have any ideas? Sound off in the comments!
