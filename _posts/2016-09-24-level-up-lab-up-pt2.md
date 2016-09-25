@@ -6,7 +6,7 @@ author: Alex McFarland
 tags: [vagrant]
 bigimg: /img/earth_night_iss.jpg
 ---
-In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT landscape is changing, and that if you wanted to stay current, you need to get out of your comfort zone and spend time experimenting with technology that you're not familliar with. In this post, we are going to take a look at Vagrant as a means of rapidy creating development and test environments so that you can skip the drudgery of installing operating systems and focus on the things that really matter.
+In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT landscape is changing, and that if you wanted to stay current, you need to get out of your comfort zone and spend time experimenting with technology that you're not familiar with. In this post, we are going to take a look at Vagrant as a means of rapidly creating development and test environments so that you can skip the drudgery of installing operating systems and focus on the things that really matter.
 
 # Vagrant?
 [Vagrant](https://www.vagrantup.com/) is an open source project created by [HashiCorp](https://www.hashicorp.com/) designed to create lightweight, reproducible development environments. The idea is that you can create an environment that mirrors (or is at least close to) production and hand it out to your developers by only sharing a handful of text files.
@@ -29,7 +29,7 @@ Prior to discovering Vagrant, I was using Hyper-V as my default hypervisor. Afte
 Because you can only have one hypervisor running at a time, you'll need to disable Hyper-V if you have it running. If you want to be able to go back and forth, you can create a boot menu to select between a Hyper-V and non-Hyper-V profile. Scott Hansleman has a nice blog on this [here](http://www.hanselman.com/blog/SwitchEasilyBetweenVirtualBoxAndHyperVWithABCDEditBootEntryInWindows81.aspx).
 
 ## Choosing an Image
-Vagrant hosts many images on their [Altlas](https://atlas.hashicorp.com/boxes/search) service. As you expect, you'll find many flavors of Linux, but will also find boxes built with 180 day evaluation copies of Windows. Because environments created with Vagrant can be destroyed and recreated, evaluation copies of Windows are a perfect fit.
+Vagrant hosts many images on their [Altlas](https://atlas.hashicorp.com/boxes/search) service. As you expect, you'll find many flavors of Linux, but will also find boxes built with 180-day evaluation copies of Windows. Because environments created with Vagrant can be destroyed and recreated, evaluation copies of Windows are a perfect fit.
 
 > Note: The evaluation period of a Windows image starts when it's initially created, not when you first spin it up in Vagrant. Because of this, it's best to ensure you choose an image that is updated frequently, or to learn how to build them yourself with [Packer](https://www.packer.io/intro/). For more on this, check out this awesome [blog](http://www.hurryupandwait.io/blog/creating-windows-base-images-for-virtualbox-and-hyper-v-using-packer-boxstarter-and-vagrant) by Matt Wrock, or Chef's Bento [repository](https://github.com/chef/bento).
 
@@ -44,7 +44,7 @@ Here are a few examples:
 # Deploying a VM with Vagrant
 At this point, I'm sure you're quite done reading _about_ Vagrant and are ready to try actually _using_ it. Well, let's get started! Because I'm a Windows guy first, we are going to spin up a Windows Server 2012 R2 machine.
 
->Note: The image we are using has been minimized; all optional features have been removed and will be installed via [features on demand](). While this speeds up the initial download and works well for most things, there are some server roles that won't install this way, and server roles you consistently use will have to be downloaded every time you enstantiate a new VM. Because of this, when you start your own project, it may make sense to create your own image that's customized to your needs with the roles you require baked in.
+>Note: The image we are using has been minimized; all optional features have been removed and will be installed via [features on demand](). While this speeds up the initial download and works well for most things, there are some server roles that won't install this way, and server roles you consistently use will have to be downloaded every time you instantiate a new VM. Because of this, when you start your own project, it may make sense to create your own image that's customized to your needs with the roles you require baked in.
 
 ## Prerequisites
 To follow along, you'll need the following:
@@ -57,7 +57,7 @@ To follow along, you'll need the following:
 
 I'll be performing these steps in Windows 10 at a PowerShell prompt, but it should work equally well on a Mac or in Linux. 
 
->You may notice in the examples that my command prompt looks a bit different from yours. This is because I'm using [Cmder](http://cmder.net/) instead of the native Windows PowerShell prompt. It supports more colors than the native command prompt (something which is nice when using tools like Vagrant that are ported from an environment that has a 256 color command prompt) and becauase it adds some visual distinction to when I'm working inside or outside of the VM. In any of the examples, if the line starts with a `λ` I'm working on my native OS, and not inside the VM. 
+>You may notice in the examples that my command prompt looks a bit different from yours. This is because I'm using [Cmder](http://cmder.net/) instead of the native Windows PowerShell prompt. It supports more colors than the native command prompt (something which is nice when using tools like Vagrant that are ported from an environment that has a 256 color command prompt) and because it adds some visual distinction to when I'm working inside or outside of the VM. In any of the examples, if the line starts with a `λ` I'm working on my native OS, and not inside the VM. 
 
 ## Vagrant Up!
 Let's start by creating a directory anywhere on your machine. First change to a working directory somewhere, then create a new folder to house our vagrant project, then change to that directory. I'm going to use `c:\vagrantdemo` for demonstration purposes.
@@ -140,7 +140,7 @@ Let's explore our new server a bit. You should have a visible VirtualBox desktop
 
 Vagrant boxes all have a default user with a username of `vagrant` and a password of `vagrant`, and this box is no different. Feel free to log into the console and explore, but don't make any changes just yet.
 
-The .vagrant folder is a working directory where vagrant keeps track of things like the virtual machine name and various other metadata. This is all specific to your particular environment, and we don't need to do anything with it. If you're tracking your project in Git, you should add this folder to your .gitgnore file so that it doesn't get checked in and synced down to other people's machines.
+The `.vagrant` folder is a working directory where vagrant keeps track of things like the virtual machine name and various other metadata. This is all specific to your particular environment, and we don't need to do anything with it. If you're tracking your project in Git, you should add this folder to your .gitgnore file so that it doesn't get checked in and synced down to other people's machines.
 
 At this point, you have two ways to log in. You can use the VirtulBox GUI, or you can use PowerShell remoting. Let's stick with PowerShell Remoting.
 
@@ -263,7 +263,7 @@ C:\vagrantdemo
 ```
 
 ## Port Forwarding
-At this point, you have a functional web server. If you log into the windows desktop via Virtualbox, you can point your browser at `http://localhost` and get a page load. Unfortunately, you can't load the page from your normal browser outside of the VM. Let's fix that by adding one more line to the configuration file.
+At this point, you have a functional web server. If you log into the windows desktop via VirtualBox, you can point your browser at `http://localhost` and get a page load. Unfortunately, you can't load the page from your normal browser outside of the VM. Let's fix that by adding one more line to the configuration file.
 
 Once again, open `Vagrantfile` in your text editor. Add the following line above the provisoner line we added earlier:
 
@@ -313,8 +313,10 @@ One of the more amazing things about this, is that in order to share your enviro
 This really only scratches the surface, as you can perform very complex builds once you get into using the more advanced provisioners. You can even do [multi-machine](https://www.vagrantup.com/docs/multi-machine/) Vagrant projects! Another interesting option is to include a `Vagrantfile` with your existing projects. It's just a single text file, but gives you a way to bundle an entire development environment with your work.
 
 ## Examples
+**DNN Test Environment**  
 At work, we use [DNN](http://www.dnnsoftware.com/) as our Web content management system. I got tired of spending two hours building lab environments every time I wanted to tinker in a safe place, so I built an environment using Vagrant. One of the nice benefits was it gave me an opportunity to brush up on my PowerShell DSC, as it had been a while since I'd used it. You can find the project [here](https://github.com/a-mcf/DnnLab). Now I can easily spin up _fresh_ test machines whenever I want.
 
+**Blogging**  
 This blog is hosted on [Github Pages](https://pages.github.com/), and uses a [Jekyll](https://jekyllrb.com/) template called [Beautiful Jekyll](http://deanattali.com/beautiful-jekyll/). The template came with a `Vagrantfile` that spins up a Debian image, installs all Ruby  perquisites, and spins up the web server. This allows me to test changes locally, and I don't have to go through the trouble of mucking up my laptop's Ruby environment with all of the dependencies required to get Jekyll going.
 
-Share any interesting uses you've put Vagrant to in the comments!
+Done any interesting with Vagrant or have any ideas? Sound off in the comments!
