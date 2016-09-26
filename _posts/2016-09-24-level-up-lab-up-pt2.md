@@ -6,7 +6,7 @@ author: Alex McFarland
 tags: [vagrant]
 bigimg: /img/earth_night_iss.jpg
 ---
-In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT landscape is changing, and that if you wanted to stay current, you need to get out of your comfort zone and spend time experimenting with technology that you're not familiar with. In this post, we are going to take a look at Vagrant as a means of rapidly creating development and test environments so that you can skip the drudgery of installing operating systems and focus on the things that really matter.
+In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT landscape is changing, and that staying current means getting outside of your comfort zone and spend time experimenting with unfamiliar technology. In this post, we are going to take a look at Vagrant as a means of rapidly creating development and test environments so that you can skip the drudgery of installing operating systems and focus on the things that really matter.
 
 # Vagrant?
 [Vagrant](https://www.vagrantup.com/) is an open source project created by [HashiCorp](https://www.hashicorp.com/) designed to create lightweight, reproducible development environments. The idea is that you can create an environment that mirrors (or is at least close to) production and hand it out to your developers by only sharing a handful of text files.
@@ -14,26 +14,26 @@ In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT
 ## Overview
 Vagrant works by abstracting away configuration of the virtual machine and [hypervisor](https://en.wikipedia.org/wiki/Hypervisor) and storing relevant settings inside of a single configuration file. Rather than interacting with the hypervisor directly, you use the `vagrant` command to control the virtual machine(s) that you're working with.
 
-Each vagrant project should have it's own folder. This folder will contain your Vagrantfile, which contains the VM configuration, any and files you want to be shared with the VM. By default, the entire project folder will be mounted inside of the VM at either `/vagrant` or `c:\vagrant` if you're running on windows.
+Each vagrant project should have its own folder. At a minimum, the folder contains a [Vagrantfile](https://www.vagrantup.com/docs/vagrantfile/), which contains a reference to the box you're using and any VM or provisioning configuration. The folder should also contain any other files you want to be shared with the VM such as any script. By default, the entire project folder will be mounted inside of the VM at either `/vagrant` or `c:\vagrant` (if you're running on Windows) and are available to processes running inside the virtual machine.
 
 ## Choosing a Hypervisor
-Vagrant has built-in support for VirtualBox, Hyper-V, and Docker out of the box, and has support for other types of virtual machines such as AWS and VMWare by using it's [provider](https://www.vagrantup.com/docs/providers/) system.
+Vagrant has built-in support for VirtualBox, Hyper-V, and Docker out of the box, and has support for other types of virtual machines such as AWS and VMWare by using its [provider](https://www.vagrantup.com/docs/providers/) system.
 
 Prior to discovering Vagrant, I was using Hyper-V as my default hypervisor. After tinkering a bit, I switched to VirtualBox. Here is why:
 
 - VirtualBox is Vagrant's default provider, so all features are supported.
 - There are many more pre-built boxes available with VirtualBox.
-- Vagrant can use several VirtualBox's built-in shared folders to mount the project folder inside the vm, and will "just work" whether you're on Windows, Mac, or Linux. With Hyper-V, you're probably going to end up using SMB shared folders, which while faster than VirtualBox shared folders aren't supported on other OS types, and create a share on the host workstation.
+- Vagrant can use VirtualBox's built-in shared folders to mount the project folder inside the VM, and will "just work" whether you're on Windows, Mac, or Linux. With Hyper-V, you're probably going to end up using SMB shared folders, which while faster than VirtualBox shared folders aren't supported on non-Windows hosts, and require creating a share on the host workstation.
 - I use a laptop with a high DPI display, and was occasionally frustrated when working on the console of a VM that didn't support display scaling. VirtualBox fixes this issue for me. In general, VirtualBox had improved tremendously since I last `tried it many years ago, and I was pleasantly surprised.
 
-Because you can only have one hypervisor running at a time, you'll need to disable Hyper-V if you have it running. If you want to be able to go back and forth, you can create a boot menu to select between a Hyper-V and non-Hyper-V profile. Scott Hansleman has a nice blog on this [here](http://www.hanselman.com/blog/SwitchEasilyBetweenVirtualBoxAndHyperVWithABCDEditBootEntryInWindows81.aspx).
+Because you can only have one hypervisor running at a time, if you want to try VirtualBox you'll need to disable Hyper-V if you have it running. If you want to be able to go back and forth, you can create a boot menu to select between a Hyper-V and non-Hyper-V profile. Scott Hansleman has a nice blog on this [here](http://www.hanselman.com/blog/SwitchEasilyBetweenVirtualBoxAndHyperVWithABCDEditBootEntryInWindows81.aspx).
 
 ## Choosing an Image
-Vagrant hosts many images on their [Altlas](https://atlas.hashicorp.com/boxes/search) service. As you expect, you'll find many flavors of Linux, but will also find boxes built with 180-day evaluation copies of Windows. Because environments created with Vagrant can be destroyed and recreated, evaluation copies of Windows are a perfect fit.
+Vagrant hosts many images (boxes) on their [Atlas](https://atlas.hashicorp.com/boxes/search) service. As you expect, you'll find many flavors of Linux, but will also find boxes built with 180-day evaluation copies of Windows. Because environments created with Vagrant can be destroyed and recreated, evaluation copies of Windows are a perfect fit.
 
-> Note: The evaluation period of a Windows image starts when it's initially created, not when you first spin it up in Vagrant. Because of this, it's best to ensure you choose an image that is updated frequently, or to learn how to build them yourself with [Packer](https://www.packer.io/intro/). For more on this, check out this awesome [blog](http://www.hurryupandwait.io/blog/creating-windows-base-images-for-virtualbox-and-hyper-v-using-packer-boxstarter-and-vagrant) by Matt Wrock, or Chef's Bento [repository](https://github.com/chef/bento).
+> Note: The evaluation period of a Windows image starts when it's initially created, not when you first spin it up in Vagrant. Because of this, it's best to ensure you choose an image that is updated frequently, or to learn how to build them yourself with [Packer](https://www.packer.io/intro/). For more on this, check out this awesome [blog](http://www.hurryupandwait.io/blog/creating-windows-base-images-for-virtualbox-and-hyper-v-using-packer-boxstarter-and-vagrant) by Matt Wrock, or Chef's Bento [repository](https://github.com/chef/bento) where they keep numerous Packer templates.
 
-Some images support a single provider, while others support multiple. Either way, each Vagrant [box](https://www.vagrantup.com/docs/boxes.html) on Atlas uses a `USER/BOX` naming schema.
+Some boxes support a single provider, while others support multiple. Either way, each Vagrant [box](https://www.vagrantup.com/docs/boxes.html) on Atlas uses a `USER/BOX` naming schema.
 
 Here are a few examples:
 
@@ -42,9 +42,9 @@ Here are a few examples:
 - [mwrock/Windows2012R2](https://atlas.hashicorp.com/mwrock/boxes/Windows2012R2) - Windows 2012 R2, Minimized
  
 # Deploying a VM with Vagrant
-At this point, I'm sure you're quite done reading _about_ Vagrant and are ready to try actually _using_ it. Well, let's get started! Because I'm a Windows guy first, we are going to spin up a Windows Server 2012 R2 machine.
+At this point, I'm sure you're quite done reading _about_ Vagrant and are ready to try actually _using_ it. Because I hail from a primarily Windows background, we are going to spin up a Windows Server 2012 R2 machine.
 
->Note: The image we are using has been minimized; all optional features have been removed and will be installed via [features on demand](). While this speeds up the initial download and works well for most things, there are some server roles that won't install this way, and server roles you consistently use will have to be downloaded every time you instantiate a new VM. Because of this, when you start your own project, it may make sense to create your own image that's customized to your needs with the roles you require baked in.
+>Note: The image we are using has been minimized; all optional features have been removed and will be installed via [features on demand](https://www.youtube.com/watch?v=zicWtMX8ohc). While this speeds up the initial download and works well for most things, there are some server roles that won't install this way. Additionally, server roles you consistently use will have to be downloaded every time you instantiate a new VM and install the feature. Because of this, when you start your own project, it may make sense to create your own image that's customized to your needs with the roles you require baked in.
 
 ## Prerequisites
 To follow along, you'll need the following:
@@ -53,14 +53,16 @@ To follow along, you'll need the following:
 2. [VirtualBox](https://www.virtualbox.org/wiki/Downloads) downloaded and installed. 
 3. [Vagrant](https://www.vagrantup.com/downloads.html) downloaded and installed.  
 
->If you're on Windows, you'll want a copy of ssh.exe in your path somewhere when working with *nix systems. It won't matter much for this tutorial, so you can take care of this later if you'd like. If you're reading this and looking at using Vagrant, there is a good chance you're also using Git. If so, you can just add the included copy of ssh.exe to your path. A quick Google search says that you can use Putty, though I haven't tried it. There is a blog on this [here](http://tech.osteel.me/posts/2015/01/25/how-to-use-vagrant-on-windows.html) that looks like it should work, though I haven't attempted it.
+>If you're on Windows, you'll want a copy of ssh.exe in your path somewhere when working with *nix systems. It won't matter much for this tutorial, so you can take care of this later if you'd like. If you're reading this and looking at using Vagrant, there is a good chance you're also using Git. If so, you can just add the included copy of ssh.exe to your path. A quick Google search says that you can use Putty, though I haven't tried it. There is a blog on this [here](http://tech.osteel.me/posts/2015/01/25/how-to-use-vagrant-on-windows.html) that looks like it should work. Me? I'm just going to stick ssh.exe in my path.
 
 I'll be performing these steps in Windows 10 at a PowerShell prompt, but it should work equally well on a Mac or in Linux. 
 
->You may notice in the examples that my command prompt looks a bit different from yours. This is because I'm using [Cmder](http://cmder.net/) instead of the native Windows PowerShell prompt. It supports more colors than the native command prompt (something which is nice when using tools like Vagrant that are ported from an environment that has a 256 color command prompt) and because it adds some visual distinction to when I'm working inside or outside of the VM. In any of the examples, if the line starts with a `λ` I'm working on my native OS, and not inside the VM. 
+>You may notice in the examples that my command prompt looks a bit different from yours. This is because I'm using [Cmder](http://cmder.net/) instead of the native Windows PowerShell prompt. It supports more colors than the native command prompt (something which is nice when using tools like Vagrant that are ported from an environment that has a 256 color command prompt) and because it adds a visual queue as to when I'm working inside or outside of the VM. In any of the examples, if the line starts with a `λ` I'm working on my native OS, and not inside the VM. 
 
 ## Vagrant Up!
-Let's start by creating a directory anywhere on your machine. First change to a working directory somewhere, then create a new folder to house our vagrant project, then change to that directory. I'm going to use `c:\vagrantdemo` for demonstration purposes.
+Let's start by creating a directory anywhere on your machine. First change to a working directory somewhere, then create a new folder to house our vagrant project and change to that directory. 
+
+I'm going to use `c:\vagrantdemo` for demonstration purposes.
 
 ```powershell
 md c:\vagrantdemo
@@ -136,9 +138,9 @@ After the machine downloads, Vagrant will start the VM and run any provisioners 
 You now have a running Windows Server 2012 R2 VM!
 
 ## Poking around
-Let's explore our new server a bit. You should have a visible VirtualBox desktop, and under the project folder, there is a `.vagrant` folder.
+Let's explore our new server a bit. You should have a new VirtualBox window containing the server's console, and under the project folder, there is a `.vagrant` folder.
 
-Vagrant boxes all have a default user with a username of `vagrant` and a password of `vagrant`, and this box is no different. Feel free to log into the console and explore, but don't make any changes just yet.
+Vagrant boxes all have a default credential with a username of `vagrant` and a password of `vagrant`. This box is no different. Feel free to log into the console and explore, but don't make any changes just yet.
 
 The `.vagrant` folder is a working directory where vagrant keeps track of things like the virtual machine name and various other metadata. This is all specific to your particular environment, and we don't need to do anything with it. If you're tracking your project in Git, you should add this folder to your .gitgnore file so that it doesn't get checked in and synced down to other people's machines.
 
@@ -228,7 +230,7 @@ In order to get the `install-iis.ps1` script we just created to run when we `vag
   config.vm.provision "shell", path: "install-iis.ps1", run: "once"
 ```
 
-This configuration setting tell Vagrant to run `install-iis.ps1`, but only one time. This makes sense here, because we don't want to attempt to install IIS every time the system boots.
+This configuration setting tells Vagrant to run `install-iis.ps1`, but only one time. This makes sense here, because we don't want to attempt to install IIS every time the system boots.
 
 The `Vagrantfile`, (excluding comments) should now look like this:
 
@@ -281,17 +283,19 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-Shut down, then bring the virtual machine back up with the following commands:
+To enable the forwarder, shut down and restart the VM with the following commands:
 
 ```
 vagrant halt
 vagrant up
 ```
 
-Once the machine boots, load up your browser of choice, point to `http://localhost:8080` and you should see the IIS start screen.
+Once the machine boots, load up your browser of choice in the host OS and point to `http://localhost:8080`. With any luck, you should see the default IIS start page.
 ![IIS home screen in browser on the host OS](/img/iishome.jpg)
 
-One last thing to try, is sharing your VM with remote users. You'll need a free account on Atlas to do this, but it's pretty cool. Run:
+## Vagrant Share
+
+One last thing to try, is sharing your VM with remote users. You'll need a free account on [Atlas](https://atlas.hashicorp.com/account/new) to do this, but it's pretty cool. Run:
 ```
 vagrant share --http 8080
 ```
@@ -358,6 +362,8 @@ This really only scratches the surface, as you can perform very complex builds o
 At work, we use [DNN](http://www.dnnsoftware.com/) as our Web content management system. I got tired of spending two hours building lab environments every time I wanted to tinker in a safe place, so I built an environment using Vagrant. One of the nice benefits was it gave me an opportunity to brush up on my PowerShell DSC, as it had been a while since I'd used it. You can find the project [here](https://github.com/a-mcf/DnnLab). Now I can easily spin up _fresh_ test machines whenever I want.
 
 **Blogging**  
-This blog is hosted on [Github Pages](https://pages.github.com/), and uses a [Jekyll](https://jekyllrb.com/) template called [Beautiful Jekyll](http://deanattali.com/beautiful-jekyll/). The template came with a `Vagrantfile` that spins up a Debian image, installs all Ruby  perquisites, and spins up the web server. This allows me to test changes locally, and I don't have to go through the trouble of mucking up my laptop's Ruby environment with all of the dependencies required to get Jekyll going.
+This blog is hosted on [GitHub Pages](https://pages.github.com/), and uses a [Jekyll](https://jekyllrb.com/) template called [Beautiful Jekyll](http://deanattali.com/beautiful-jekyll/). The template came with a `Vagrantfile` that spins up a Debian image, installs all Ruby  perquisites, and spins up the web server. This allows me to test changes locally, and I don't have to go through the trouble of mucking up my laptop's Ruby environment with all of the dependencies required to get Jekyll going.
 
-Done anything interesting with Vagrant or have any ideas? Sound off in the comments!
+Have you done anything interesting with Vagrant or have any ideas? Sound off in the comments!
+
+<sup>Image courtesy of www.nasa.gov - http://www.nasa.gov/multimedia/imagegallery/image_feature_2184.html</sup>
