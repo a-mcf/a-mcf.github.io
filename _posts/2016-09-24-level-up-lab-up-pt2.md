@@ -6,7 +6,7 @@ author: Alex McFarland
 tags: [vagrant]
 bigimg: /img/earth_night_iss.jpg
 ---
-In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT landscape is changing, and that staying current means getting outside of your comfort zone and spend time experimenting with unfamiliar technology. In this post, we are going to take a look at Vagrant as a means of rapidly creating development and test environments so that you can skip the drudgery of installing operating systems and focus on the things that really matter.
+In [part 1 of this series](/2016-09-18-level-up-lab-up/), I discussed how the IT landscape is changing, and that staying current means getting outside of your comfort zone and spending time experimenting with unfamiliar technology. In this post, we are going to take a look at Vagrant as a means of rapidly creating development and test environments so that you can skip the drudgery of installing operating systems and focus on the things that really matter.
 
 # Vagrant?
 [Vagrant](https://www.vagrantup.com/) is an open source project created by [HashiCorp](https://www.hashicorp.com/) designed to create lightweight, reproducible development environments. The idea is that you can create an environment that mirrors (or is at least close to) production and hand it out to your developers by only sharing a handful of text files.
