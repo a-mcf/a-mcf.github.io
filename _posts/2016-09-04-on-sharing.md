@@ -3,7 +3,7 @@ layout: post
 title: On Sharing
 subtitle: Learning To Value Your Personal Perspective
 author: Alex McFarland
-tags: [calms, culture, sharing]
+tags: [calms, culture, sharing, personal]
 bigimg: /img/sharing.jpg
 ---
 
