@@ -24,7 +24,7 @@ Prior to discovering Vagrant, I was using Hyper-V as my default hypervisor. Afte
 - VirtualBox is Vagrant's default provider, so all features are supported.
 - There are many more pre-built boxes available with VirtualBox.
 - Vagrant can use VirtualBox's built-in shared folders to mount the project folder inside the VM, and will "just work" whether you're on Windows, Mac, or Linux. With Hyper-V, you're probably going to end up using SMB shared folders, which while faster than VirtualBox shared folders aren't supported on non-Windows hosts, and require creating a share on the host workstation.
-- I use a laptop with a high DPI display, and was occasionally frustrated when working on the console of a VM that didn't support display scaling. VirtualBox fixes this issue for me. In general, VirtualBox had improved tremendously since I last `tried it many years ago, and I was pleasantly surprised.
+- I use a laptop with a high DPI display, and was occasionally frustrated when working on the console of a VM that didn't support display scaling. VirtualBox fixes this issue for me. In general, VirtualBox had improved tremendously since I last tried it many years ago, and I was pleasantly surprised.
 
 Because you can only have one hypervisor running at a time, if you want to try VirtualBox you'll need to disable Hyper-V if you have it running. If you want to be able to go back and forth, you can create a boot menu to select between a Hyper-V and non-Hyper-V profile. Scott Hansleman has a nice blog on this [here](http://www.hanselman.com/blog/SwitchEasilyBetweenVirtualBoxAndHyperVWithABCDEditBootEntryInWindows81.aspx).
 

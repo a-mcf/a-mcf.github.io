@@ -3,7 +3,13 @@
   "ignoreWordsList": [
     "DevOps",
     "Hansleman",
-    "periodization"
+    "periodization",
+    "VirtualBox",
+    "Docker",
+    "hypervisor",
+    "exe",
+    "PowerShell",
+    "provisioners"
   ],
   "mistakeTypeToStatus": {
     "Passive voice": "Hint",
